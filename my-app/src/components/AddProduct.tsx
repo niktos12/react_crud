@@ -7,7 +7,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import DialogWindow from "./DialogWindow";
 
 interface AddProductProps {
-  setProducts: any;
+  setProducts: (products: Product[]) => void;
   products: Product[];
 }
 const AddProduct: React.FC<AddProductProps> = ({ setProducts, products }) => {
