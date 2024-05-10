@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { MdDeleteForever } from "react-icons/md";
-import axios from "axios";
 
 interface Product {
   id: number;
