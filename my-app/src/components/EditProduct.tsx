@@ -18,12 +18,24 @@ const EditProduct: React.FC<EditProductProps> = ({ setProducts }) => {
     register,
     handleSubmit,
     reset,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<Product>({
     resolver: zodResolver(productSchema),
   });
   const backToProductList = () => {
     navigate("/");
+  };
+  const incrementQuantity = () => {
+    setValue("quantity", Number(watch("quantity")) + 1);
+  };
+
+  const decrementQuantity = () => {
+    const currentQuantity = Number(watch("quantity"));
+    if (currentQuantity > 1) {
+      setValue("quantity", currentQuantity - 1);
+    }
   };
 
   useEffect(() => {
@@ -58,7 +70,11 @@ const EditProduct: React.FC<EditProductProps> = ({ setProducts }) => {
 
   return (
     <>
-      <DialogWindow backToProductList={backToProductList} isDialogOpen={open} setIsDialogOpen={setOpen} />
+      <DialogWindow
+        backToProductList={backToProductList}
+        isDialogOpen={open}
+        setIsDialogOpen={setOpen}
+      />
       <form className="bg-white rounded w-[500px] p-5 rounded bg-white z-40 left-1/2 shadow-2xl -translate-x-1/2 fixed translate-y-1/2">
         <div>
           <label htmlFor="name" className="block text-gray-700 mb-2">
@@ -122,16 +138,29 @@ const EditProduct: React.FC<EditProductProps> = ({ setProducts }) => {
           <label htmlFor="quantity" className="block text-gray-700 mb-2">
             Quantity
           </label>
-          <input
-            {...register("quantity", { valueAsNumber: true })}
-            id="quantity"
-            type="number"
-            className="border p-2 w-full"
-            required
-          />
-          {errors.quantity && (
-            <p className="text-red-500">{errors.quantity.message}</p>
-          )}
+          <div className="flex items-center">
+            <input
+              {...register("quantity", { valueAsNumber: true })}
+              type="number"
+              id="quantity"
+              className="border p-2 w-full"
+              required
+            />
+            <button
+              type="button"
+              onClick={decrementQuantity}
+              className="border p-2 rounded-l-md"
+            >
+              -
+            </button>
+            <button
+              type="button"
+              onClick={incrementQuantity}
+              className="border p-2 rounded-r-md"
+            >
+              +
+            </button>
+          </div>
         </div>
         <div className="flex justify-between">
           <button

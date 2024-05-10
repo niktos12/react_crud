@@ -11,6 +11,15 @@ interface AddProductProps {
   products: Product[];
 }
 const AddProduct: React.FC<AddProductProps> = ({ setProducts, products }) => {
+  const incrementQuantity = () => {
+    setValue("quantity", quantity + 1);
+  };
+
+  const decrementQuantity = () => {
+    if (quantity > 1) {
+      setValue("quantity", quantity - 1);
+    }
+  };
   const navigate = useNavigate();
   const backToProductList = () => {
     navigate("/");
@@ -37,6 +46,7 @@ const AddProduct: React.FC<AddProductProps> = ({ setProducts, products }) => {
     handleSubmit,
     reset,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<ProductInput>({
     resolver: zodResolver(productSchema),
@@ -56,7 +66,11 @@ const AddProduct: React.FC<AddProductProps> = ({ setProducts, products }) => {
 
   return (
     <>
-    <DialogWindow backToProductList={backToProductList} isDialogOpen={open} setIsDialogOpen={setOpen}/>
+      <DialogWindow
+        backToProductList={backToProductList}
+        isDialogOpen={open}
+        setIsDialogOpen={setOpen}
+      />
       <form className="bg-white rounded w-[500px] p-5 rounded bg-white z-40 left-1/2 shadow-2xl -translate-x-1/2 fixed translate-y-1/2">
         <div>
           <label htmlFor="name" className="block text-gray-700 mb-2">
@@ -124,33 +138,49 @@ const AddProduct: React.FC<AddProductProps> = ({ setProducts, products }) => {
           <label htmlFor="quantity" className="block text-gray-700 mb-2">
             Quantity
           </label>
-          <input
-            {...register("quantity", { valueAsNumber: true })}
-            id="quantity"
-            value={quantity}
-            type="number"
-            className="border p-2 w-full"
-            required
-          />
-          {errors.quantity && (
-            <p className="text-red-500">{errors.quantity.message}</p>
-          )}
-        </div>
-        <div className="flex justify-between">
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            onClick={handleSubmit(onSubmit)}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-          >
-            Add Product
-          </button>
+          <div className="flex">
+            <input
+              {...register("quantity", { valueAsNumber: true })}
+              id="quantity"
+              value={quantity}
+              type="number"
+              className="border p-2 w-full"
+              required
+            />
+            {errors.quantity && (
+              <p className="text-red-500">{errors.quantity.message}</p>
+            )}
+            <button
+              type="button"
+              onClick={decrementQuantity}
+              className="border p-2 rounded-l-md"
+            >
+              -
+            </button>
+            <button
+              type="button"
+              onClick={incrementQuantity}
+              className="border p-2 rounded-r-md"
+            >
+              +
+            </button>
+          </div>
+          <div className="flex justify-between">
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              onClick={handleSubmit(onSubmit)}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+            >
+              Add Product
+            </button>
+          </div>
         </div>
       </form>
     </>

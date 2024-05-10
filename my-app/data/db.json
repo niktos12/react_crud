@@ -4,7 +4,7 @@
       "name": "sdfgsdfg",
       "price": 15,
       "image": "https://avatars.mds.yandex.net/i?id=5f2085fb5e549ef49caeca934075a7d8498e3c3b-12484384-images-thumbs&n=13",
-      "quantity": 13,
+      "quantity": 18,
       "description": "hfghfghfgh",
       "id": "45ff"
     },
@@ -111,6 +111,14 @@
       "image": "https://avatars.mds.yandex.net/i?id=5f2085fb5e549ef49caeca934075a7d8498e3c3b-12484384-images-thumbs&n=13",
       "description": "qwertyuiopasdffghjkghjdfsjklcbvjklbvc",
       "quantity": 2
+    },
+    {
+      "id": "f2c8",
+      "name": "dfghdfgh",
+      "price": 5,
+      "image": "https://avatars.mds.yandex.net/i?id=5f2085fb5e549ef49caeca934075a7d8498e3c3b-12484384-images-thumbs&n=13",
+      "description": "qwertyuiopasdffghjkghjdfsjklcbvjklbvc",
+      "quantity": 6
     }
   ]
 }
